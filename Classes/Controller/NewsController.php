@@ -349,6 +349,11 @@ class NewsController extends NewsBaseController
         $demand = $this->createDemandObjectFromSettings($this->settings);
         $demand->setActionAndClass(__METHOD__, __CLASS__);
 
+        if($this->request->hasArgument('backPid'))
+		{
+			$this->settings['backPid'] = (int) $this->request->getArgument('backPid');
+		}
+
         $assignedValues = [
             'newsItem' => $news,
             'currentPage' => (int)$currentPage,

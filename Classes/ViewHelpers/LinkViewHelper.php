@@ -213,6 +213,7 @@ class LinkViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedVi
 
         $configuration['useCacheHash'] = 1;
         $configuration['additionalParams'] .= '&tx_news_pi1[news]=' . $this->getNewsId($newsItem);
+		$configuration['additionalParams'] .= $this->addBackPidParams($tsSettings);
 
         if ((int)$tsSettings['link']['skipControllerAndAction'] !== 1) {
             $configuration['additionalParams'] .= '&tx_news_pi1[controller]=News' .
@@ -311,6 +312,21 @@ class LinkViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedVi
     {
         return (int)$settings['detailPid'];
     }
+
+	/**
+	 * Adds additional parameter backPid if set
+	 *
+	 * @param array $settings
+	 * @return string
+	 */
+    protected function addBackPidParams($settings)
+	{
+		if($settings['backPid'] !== '')
+		{
+			return '&tx_news_pi1[backPid]=' . $settings['backPid'];
+		}
+		return '';
+	}
 
     /**
      * Initialize properties
